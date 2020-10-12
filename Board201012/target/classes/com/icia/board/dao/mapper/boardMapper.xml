@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Board">
+
+	<!-- 글쓰기 -->
+	<insert id="boardWrite" parameterType="board">
+		INSERT INTO
+		BOARD(BNUMBER,BPASSWORD,BWRITER,BTITLE,BCONTENTS,BDATE,BHITS) VALUES
+		(BOARD_SEQ.NEXTVAL,#{bpassword},#{bwriter},#{btitle},#{bcontents},SYSDATE,0)
+	</insert>
+	
+	<!-- 글목록 -->
+	<select id="boardList" resultType="board">
+		SELECT * FROM BOARD ORDER BY BNUMBER DESC
+	</select>
+
+	<!-- 글 상세조회 -->
+	<select id="boardView" parameterType="int" resultType="board">
+		SELECT * FROM BOARD WHERE BNUMBER=#{bnumber}
+	</select>
+
+	<!-- 조회수 -->
+	<update id="boardHits" parameterType="int">
+		UPDATE BOARD SET BHITS=BHITS+1 WHERE BNUMBER=#{bnumber}
+	</update>
+	
+	<!-- 글수정(1) -->
+	<select id="boardUpdate" parameterType="int" resultType="board">
+		SELECT * FROM BOARD WHERE BNUMBER=#{bnumber}
+	</select>
+	
+	<!-- 글수정(2) -->
+	<update id="boardUpdateProcess" parameterType="board">
+		UPDATE BOARD SET BTITLE=#{btitle}, BCONTENTS=#{bcontents} WHERE BNUMBER=#{bnumber}
+	</update>
+	
+</mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

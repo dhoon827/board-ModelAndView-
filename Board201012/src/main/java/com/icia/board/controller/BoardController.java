@@ -1,0 +1,67 @@
+package com.icia.board.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.icia.board.dto.BoardDTO;
+import com.icia.board.service.BoardService;
+
+@Controller
+public class BoardController {
+
+	
+	@Autowired
+	private BoardService boardService;
+	
+	private ModelAndView mav;
+	
+	@RequestMapping(value="/")
+	public String home() {
+		return "home";
+	}
+	
+	//글쓰기 페이지 이동
+	@RequestMapping(value="boardwriteform")
+	public String join() {
+		return "boardv/write";
+	}
+	
+	//글쓰기
+	@RequestMapping(value="/boardwrite")
+	public ModelAndView write(@ModelAttribute BoardDTO board) {
+		mav = boardService.boardWrite(board);
+		return mav;
+	}
+	
+	//글 목록
+	@RequestMapping(value="boardlist")
+	public ModelAndView boardList() {
+		mav = boardService.boardList();
+		return mav;
+	}
+	
+	//글 상세조회
+	@RequestMapping(value="boardview")
+	public ModelAndView boardView(@RequestParam("bnumber") int bnumber) {
+		mav = boardService.boardView(bnumber);
+		return mav;
+	}
+	
+	//글 정보 가져오기 (수정)
+	@RequestMapping(value="boardupdate")
+	public ModelAndView boardUpdate(@RequestParam("bnumber") int bnumber) {
+		mav = boardService.boardUpdate(bnumber);
+		return mav;
+	}
+	
+	//글 수정
+	@RequestMapping(value="boardupdateprocess")
+	public ModelAndView boardUpdateProcess(@ModelAttribute BoardDTO board) {
+		mav = boardService.boardUpdateProcess(board);
+		return mav;
+	}
+}
