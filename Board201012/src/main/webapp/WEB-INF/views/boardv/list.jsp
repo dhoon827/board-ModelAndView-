@@ -12,7 +12,7 @@
 <table border="1">
 	<tr><th>글번호</th>
 		<th>제목</th> <th>글쓴이</th> <th>내용</th>
-		<th>비밀번호</th> <th>날짜</th> <th>조회수</th>
+		<th>비밀번호</th> <th>날짜</th> <th>조회수</th> <th>첨부파일</th>
 	</tr>
 	<c:forEach var="board" items="${boardList}">
 		<tr>
@@ -23,6 +23,7 @@
 			<td>${board.bpassword}</td>
 			<td>${board.bdate}</td>
 			<td>${board.bhits}</td>
+			<td>${board.bfilename}</td>
 			<%-- <td><button onclick="memberViewAjax('${member.mid}')">조회(ajax)</button></td>
 			<td><a href="memberdelete?mid=${member.mid}">삭제</a></td>
 			<td><a href="ajaxdelete('${member.mid})">삭제(ajax)</a></td>

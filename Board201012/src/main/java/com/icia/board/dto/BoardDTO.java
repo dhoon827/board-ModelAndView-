@@ -1,5 +1,7 @@
 package com.icia.board.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -16,4 +18,7 @@ public class BoardDTO {
 	private String bcontents;
 	private String bdate;
 	private String bhits;
+	
+	private MultipartFile bfile;
+	private String bfilename;
 }

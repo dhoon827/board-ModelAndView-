@@ -11,6 +11,13 @@
 		(BOARD_SEQ.NEXTVAL,#{bpassword},#{bwriter},#{btitle},#{bcontents},SYSDATE,0)
 	</insert>
 	
+	<!-- 파일첨부 -->
+	<insert id="boardWriteFile" parameterType="board">
+		INSERT INTO
+		BOARD(BNUMBER,BPASSWORD,BWRITER,BTITLE,BCONTENTS,BDATE,BHITS,BFILENAME) VALUES
+		(BOARD_SEQ.NEXTVAL,#{bpassword},#{bwriter},#{btitle},#{bcontents},SYSDATE,0,#{bfilename})
+	</insert>
+	
 	<!-- 글목록 -->
 	<select id="boardList" resultType="board">
 		SELECT * FROM BOARD ORDER BY BNUMBER DESC
@@ -36,6 +43,19 @@
 		UPDATE BOARD SET BTITLE=#{btitle}, BCONTENTS=#{bcontents} WHERE BNUMBER=#{bnumber}
 	</update>
 	
+	<!-- 삭제 -->
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM BOARD WHERE BNUMBER=#{bnumber}
+	</delete>
+	
+	<!-- 페이징 -->
+	<select id="boardListCount" resultType="int">
+		SELECT COUNT(BNUMBER) FROM BOARD		
+	</select>
+	<select id="boardListPaging" parameterType="page" resultType="board">
+		SELECT * FROM (SELECT B.*, ROW_NUMBER() OVER(ORDER BY BNUMBER DESC)
+			AS RN FROM BOARD B) WHERE RN BETWEEN #{startRow} AND #{endRow} <!-- RN : 조회결과에 다시 번호 붙이는것 -->
+	</select>
 </mapper>
  
  

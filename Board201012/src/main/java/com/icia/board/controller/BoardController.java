@@ -1,5 +1,7 @@
 package com.icia.board.controller;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,10 +46,17 @@ public class BoardController {
 		return mav;
 	}
 	
+	/*
+	 * @RequestMapping(value="boardview") public ModelAndView
+	 * boardView(@RequestParam("bnumber") int bnumber) { mav =
+	 * boardService.boardView(bnumber); return mav; }
+	 */
+	
 	//글 상세조회
 	@RequestMapping(value="boardview")
-	public ModelAndView boardView(@RequestParam("bnumber") int bnumber) {
-		mav = boardService.boardView(bnumber);
+	public ModelAndView boardView(@RequestParam("bnumber") int bnumber, 
+			@RequestParam(value="page",required=false,defaultValue="1") int page) {
+		mav = boardService.boardView(bnumber, page);
 		return mav;
 	}
 	
@@ -59,9 +68,36 @@ public class BoardController {
 	}
 	
 	//글 수정
-	@RequestMapping(value="boardupdateprocess")
+	@RequestMapping(value="/boardupdateprocess")
 	public ModelAndView boardUpdateProcess(@ModelAttribute BoardDTO board) {
 		mav = boardService.boardUpdateProcess(board);
+		return mav;
+	}
+	
+	//삭제
+	@RequestMapping(value="/boarddelete")
+	public ModelAndView boardDelete(@RequestParam("bnumber") int bnumber) {
+		mav = boardService.boardDelete(bnumber);
+		return mav;
+	}
+	
+	//파일첨부 페이지 이동
+	@RequestMapping(value="/boardwritefileform")
+	public String boardWriteFileForm() {
+		return "boardv/writefile";
+	}
+	
+	//파일첨부
+	@RequestMapping(value="/boardwritefile")
+	public ModelAndView boardWriteFile(@ModelAttribute BoardDTO board) throws IllegalStateException, IOException {
+		mav = boardService.boardWriteFile(board);
+		return mav;
+	}
+	
+	//페이징
+	@RequestMapping(value="/boardlistpaging")
+	public ModelAndView boardListPaging(@RequestParam(value="page",required=false,defaultValue="1") int page) {
+		mav = boardService.boardListPaging(page);
 		return mav;
 	}
 }

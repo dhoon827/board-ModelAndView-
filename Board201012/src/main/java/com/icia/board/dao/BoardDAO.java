@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.icia.board.dto.BoardDTO;
+import com.icia.board.dto.PageDTO;
 
 @Repository
 public class BoardDAO {
@@ -41,6 +42,24 @@ public class BoardDAO {
 	//글수정
 	public int boardUpdateProcess(BoardDTO board) {
 		return sql.update("Board.boardUpdateProcess", board);
+	}
+
+	//삭제
+	public int boardDelete(int bnumber) {
+		return sql.delete("Board.boardDelete", bnumber);
+	}
+
+	//파일첨부
+	public int boardWriteFile(BoardDTO board) {
+		return sql.insert("Board.boardWriteFile", board);
+	}
+
+	//페이징
+	public int listCount() {
+		return sql.selectOne("Board.boardListCount");
+	}
+	public List<BoardDTO> boardListPaging(PageDTO paging) {
+		return sql.selectList("Board.boardListPaging", paging);
 	}
 
 }
