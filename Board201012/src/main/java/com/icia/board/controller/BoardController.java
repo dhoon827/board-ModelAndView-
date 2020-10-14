@@ -100,4 +100,12 @@ public class BoardController {
 		mav = boardService.boardListPaging(page);
 		return mav;
 	}
+	
+	//검색
+	@RequestMapping(value="/boardsearch")
+	public ModelAndView boardSearch(@RequestParam("searchtype") String searchtype,
+			@RequestParam("keyword") String keyword) {
+		mav = boardService.boardSearch(searchtype, keyword);
+		return mav;
+	}
 }

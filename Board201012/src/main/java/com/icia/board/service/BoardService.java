@@ -143,6 +143,15 @@ public class BoardService {
 		mav.setViewName("boardv/listpaging");
 		return mav;
 	}
+
+	//검색
+	public ModelAndView boardSearch(String searchtype, String keyword) {
+		mav = new ModelAndView();
+		List<BoardDTO> searchList = boardDAO.boardSearch(searchtype, keyword);
+		mav.addObject("boardList", searchList);
+		mav.setViewName("boardv/listpaging");
+		return mav;
+	}
 	
 
 }

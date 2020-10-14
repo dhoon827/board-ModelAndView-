@@ -6,9 +6,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script>
+	function boardSearch(){
+		searchform.submit();
+	}
+</script>
 </head>
 <body>
 	<h2>ListPaging.jsp</h2>
+	
+	<form action="boardsearch" method="get" name="searchform">
+		<select id="searchtype" name="searchtype">
+			<option value="searchtitle">제목</option>
+			<option value="searchwriter">작성자</option>
+		</select>
+		<input type="text" name="keyword" placeholder="검색어입력">
+		<input type="button" onclick="boardSearch()" value="검색">
+	</form>
 		<table border="1">
 		<tr>
 			<td>글번호</td>

@@ -56,6 +56,22 @@
 		SELECT * FROM (SELECT B.*, ROW_NUMBER() OVER(ORDER BY BNUMBER DESC)
 			AS RN FROM BOARD B) WHERE RN BETWEEN #{startRow} AND #{endRow} <!-- RN : 조회결과에 다시 번호 붙이는것 -->
 	</select>
+	
+	<!-- 검색 -->
+	<select id="boardSearch" resultType="board" parameterType="java.util.HashMap">
+	SELECT * FROM BOARD
+		<include refid="search"></include>
+	</select>
+	<sql id="search">
+		<choose>
+			<when test="type == 'searchtitle'">
+			WHERE BTITLE LIKE '%'||#{word}||'%'
+			</when>
+			<when test="type == 'searchwriter'">
+			WHERE BWRITER LIKE '%'||#{word}||'%'
+			</when>
+		</choose>
+	</sql>
 </mapper>
  
  
